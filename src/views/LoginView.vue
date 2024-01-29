@@ -7,11 +7,11 @@
         <div class="form">
             <div class="containerData">
                 <label for="#">Name</label>
-                <input type="text" name="" id="" v-model="username">
+                <input type="text" name="" id="" v-model="username" placeholder="username">
             </div>
             <div class="containerData">
                 <label for="#">Password</label>
-                <input type="text" name="" id="" v-model="password">
+                <input type="text" name="" id="" v-model="password" placeholder="password">
             </div>
             <button @click="main">Login</button>
         </div>
@@ -19,7 +19,7 @@
 </section>
 </template>
 <script>
-import { users } from '../users'
+import  Swal  from 'sweetalert2'
 export default{
     data(){
         return{
@@ -29,13 +29,15 @@ export default{
     },
     methods:{
         main(){
-            users.push(
-                {
-                   username:this.username,
-                   password:this.password
-                }
-            )
-            this.$router.push({name:'main'})
+            if(this.username == '' || this.password == ''){
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Rellene correctamente el formulario.",
+                });
+            }else{
+                this.$router.push({name:'main'})
+            }
         }
     }
 }
